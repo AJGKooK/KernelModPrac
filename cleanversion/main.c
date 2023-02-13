@@ -9,12 +9,12 @@ int main(){
     system("clear");
 
     for(;;){
-    getcwd(cwd, sizeof(cwd));
-    printf("\n\nC:%s> ", cwd);
-    scanf("%s %s", command, parameter);
-    system("clear");
-    DIR *derp;
-    struct dirent *dp;
+        getcwd(cwd, sizeof(cwd));
+        printf("\n\nC:%s> ", cwd);
+        scanf("%s %s", command, parameter);
+        system("clear");
+        DIR *derp;
+        struct dirent *dp;
 
         if (strcmp(command, "cd") == 0){
             chdir(parameter);
