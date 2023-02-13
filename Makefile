@@ -1,11 +1,10 @@
 CC=gcc
-BIZZLE=rizzle.h
 MAIN=main.c
 COMM=command.c
 #CFLAGS= -Werror -Wall -std=c11
 #$(CFLAGS)
 
-%.o: %.c $(BIZZLE)
+%.o: %.c
 		$(CC) -c -o $@ $<
 all:
 	$(CC) -c $(COMM) $(MAIN)

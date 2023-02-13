@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <string.h>
 #include <dirent.h>
-#include "rizzle.h"
 
 int errorFlagBIC = 0;
 void user_input(char input[], char *parameters[]){
@@ -43,7 +42,6 @@ void user_input(char input[], char *parameters[]){
     char *inputCopy = (char*) calloc(inputLength + 1, sizeof(char));
     char *firstWord, *secondWord, *context;
     char cwd[1024];
-    extern char* prompt;
 
     DIR *dirp;
     struct dirent *dp;
@@ -57,11 +55,9 @@ void user_input(char input[], char *parameters[]){
     system("clear");
     if (strcmp(firstWord, "cd") == 0){
         if (secondWord == NULL){
-            
             chdir("..");
             getcwd(cwd, sizeof(cwd));
             dirp=opendir(cwd);
-            prompt=cwd;
             while ((dp = readdir(dirp))) {
                 puts(dp->d_name);
             }
@@ -73,7 +69,6 @@ void user_input(char input[], char *parameters[]){
             chdir(secondWord);
             getcwd(cwd, sizeof(cwd));
             dirp=opendir(cwd);
-            prompt=cwd;
             while ((dp = readdir(dirp))) {
                 puts(dp->d_name);
             }
