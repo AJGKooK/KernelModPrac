@@ -6,12 +6,12 @@
 void user_input(char command[], char *command_parameter[]);
 void builtin_commands(char input[]);
 char command[1024], input[1024], *parameters[20];
+char* prompt = "/Prompt";
 
 int main(int argc, char* argv[]){
 
     int errorFlagBIC;
-    char* prompt = "Prompt";
-
+    
     system("clear");
 
     for(;;){
@@ -19,7 +19,7 @@ int main(int argc, char* argv[]){
             printf("Invalid user input\n");
             errorFlagBIC = 0;
         }
-        printf("%s> ", prompt);
+        printf("C:%s> ", prompt);
 
         user_input (input, parameters); // Take input
         builtin_commands (input);       // Run built-in commands

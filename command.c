@@ -1,24 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
 #include <unistd.h>
 #include <string.h>
-#include <sys/types.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <stdbool.h>
-#include <ctype.h>
-#include<dirent.h>
+#include <dirent.h>
 #include "rizzle.h"
 
 int errorFlagBIC = 0;
 void user_input(char input[], char *parameters[]){
-
-    char character[1024];
     int count = 0, i=0, j=0, c=0;
+    char character[1024];
     char *array[100], *token;
-
 
     // Read line  (Dumps core immediately)
 
@@ -47,10 +38,12 @@ void user_input(char input[], char *parameters[]){
 }
 
  void builtin_commands(char input[]){
-    char delimiter[] = " ";
     int inputLength = strlen(input);
+    char delimiter[] = " ";
     char *inputCopy = (char*) calloc(inputLength + 1, sizeof(char));
     char *firstWord, *secondWord, *context;
+    char cwd[1024];
+    extern char* prompt;
 
     DIR *dirp;
     struct dirent *dp;
@@ -64,11 +57,11 @@ void user_input(char input[], char *parameters[]){
     system("clear");
     if (strcmp(firstWord, "cd") == 0){
         if (secondWord == NULL){
-            char cwd[1024];
+            
             chdir("..");
             getcwd(cwd, sizeof(cwd));
             dirp=opendir(cwd);
-            printf("\nCurrent working dir: %s\n\n", cwd);
+            prompt=cwd;
             while ((dp = readdir(dirp))) {
                 puts(dp->d_name);
             }
@@ -77,11 +70,10 @@ void user_input(char input[], char *parameters[]){
         else if (chdir (secondWord) != 0)
             perror("cd failure");
         else{
-            char cwd[1024];
             chdir(secondWord);
             getcwd(cwd, sizeof(cwd));
             dirp=opendir(cwd);
-            printf("Current working dir: %s\n\n", cwd);
+            prompt=cwd;
             while ((dp = readdir(dirp))) {
                 puts(dp->d_name);
             }
@@ -93,4 +85,3 @@ void user_input(char input[], char *parameters[]){
     printf("\n\n");
 
  }
-
