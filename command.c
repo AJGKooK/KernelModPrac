@@ -15,7 +15,7 @@ void user_input(char input[], char *parameters[]){
     for(;;){
         c = fgetc(stdin);           // Reads one character of user input
         character[count++]=c;       // Assigns that character to a point in the array
-        if (c=='\n') break;         // Breaks when sees enter
+        if (c=='\n') break;         // Breaks when it sees enter
     }
     token = strtok(character,"\n"); // Store token
     if (count==1) return;           // If line is empty, return
